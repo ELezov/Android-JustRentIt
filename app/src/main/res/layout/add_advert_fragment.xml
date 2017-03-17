@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:mask="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Новое объявление"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/name_advert_edit"
+            android:hint="Наименование"
+            android:inputType="text"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Описание"
+            android:id="@+id/description_advert_edit"
+            android:imeOptions="actionDone"
+            android:scrollHorizontally="false"
+            android:lines="5"
+            android:inputType="text"/>
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Выберите категорию"
+            android:textSize="10dp"/>
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/category_add_spiner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            android:background="@color/colorPrimary">
+
+        </android.support.v7.widget.AppCompatSpinner>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/advert_imageview"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/logo"
+                android:layout_marginLeft="10dp" />
+
+            <Button
+                android:id="@+id/load_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Load photo"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="centerInside"
+                android:src="@drawable/price"
+                android:layout_gravity="center_vertical"
+                android:cropToPadding="true" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="руб./сутки"
+                        android:textSize="18sp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="5dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="руб./неделю"
+                        android:textSize="18sp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="5dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="руб./месяц"
+                        android:textSize="18sp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:layout_marginLeft="5dp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1">
+                    <EditText
+                        android:id="@+id/price_edit_per_day"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Введите сумму"
+                        android:textSize="20sp"
+                        android:inputType="numberDecimal"
+                        android:layout_weight="1"/>
+                    <EditText
+                        android:id="@+id/price_edit_per_week"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Введите сумму"
+                        android:textSize="20sp"
+                        android:inputType="numberDecimal"
+                        android:layout_weight="1"/>
+                    <EditText
+                        android:id="@+id/price_edit_per_month"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:hint="Введите сумму"
+                        android:textSize="20sp"
+                        android:inputType="numberDecimal"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Залог"
+                android:textSize="20sp"
+                android:layout_marginLeft="10dp"/>
+
+            <EditText
+                android:id="@+id/pledge_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="1000"
+                android:layout_marginLeft="30dp"
+                android:textSize="20sp"
+                android:inputType="numberDecimal"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Телефон"
+                android:textSize="20sp"
+                android:layout_marginLeft="10dp"/>
+
+            <br.com.sapereaude.maskedEditText.MaskedEditText
+                android:id="@+id/phone_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_marginLeft="30dp"
+                android:inputType="phone"
+                android:typeface="monospace"
+                mask:allowed_chars="1234567890"
+                android:hint="9001234567"
+                mask:mask="+7(###)###-##-##"
+                app:keep_hint="true" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <CheckBox
+                android:id="@+id/checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Возможен ли залог документами" />
+            <ImageView
+                android:id="@+id/passport"
+                android:layout_marginLeft="20dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/passport"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/make_advert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@color/colorAccent"
+            android:textColor="#FFFFFF"
+            android:text="Дать объявление"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+</ScrollView>
