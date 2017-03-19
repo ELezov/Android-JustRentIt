@@ -120,6 +120,11 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
 
             override fun onError(error: FacebookException) {
                 //  Toast.makeText(getApplicationContext(), R.string.error_login, Toast.LENGTH_SHORT).show();
+                if (!isOnline()) {
+                    Toast.makeText(applicationContext,
+                            "Нет соединения с интернетом!", Toast.LENGTH_LONG).show()
+                }
+
             }
         })
         else {
@@ -150,6 +155,7 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     private fun showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = ProgressDialog(this)
+            mProgressDialog!!.setCancelable(false)
 
             mProgressDialog!!.setIndeterminate(true)
         }

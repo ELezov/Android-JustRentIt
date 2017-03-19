@@ -36,6 +36,7 @@ class AdvertListAdapter : RecyclerView.Adapter<AdvertListAdapter.ViewHolder>() {
         holder.priceDayText.text=data[position].pricePerDay.toString()
         holder.priceWeekText.text=data[position].pricePerWeek.toString()
         holder.priceMonthText.text=data[position].pricePerMonth.toString()
+        holder.descriptionText.text=data[position].description.toString()
         if (data[position].stringPhoto!="")
         {
             var decodedByte = Base64.decode(data[position].stringPhoto,0)
@@ -55,6 +56,7 @@ class AdvertListAdapter : RecyclerView.Adapter<AdvertListAdapter.ViewHolder>() {
         var priceWeekText:TextView
         var priceMonthText:TextView
         var imageView:ImageView
+        var descriptionText:TextView
 
 
         init {
@@ -63,6 +65,7 @@ class AdvertListAdapter : RecyclerView.Adapter<AdvertListAdapter.ViewHolder>() {
             priceWeekText=itemView.findViewById(R.id.card_advert_price_week) as TextView
             priceMonthText=itemView.findViewById(R.id.card_advert_price_month) as TextView
             imageView=itemView.findViewById(R.id.advert_item_image) as ImageView
+            descriptionText=itemView.findViewById(R.id.card_advert_description) as TextView
 
             itemView.setOnClickListener{
                 onButtonClickListener.invoke(adapterPosition)

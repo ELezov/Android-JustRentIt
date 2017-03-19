@@ -12,6 +12,7 @@ import android.support.design.widget.FloatingActionButton
 import android.support.v7.widget.Toolbar
 import android.util.Base64
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
@@ -20,6 +21,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient
 import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse
+import com.microsoft.windowsazure.mobileservices.table.TableDeleteCallback
 import com.microsoft.windowsazure.mobileservices.table.TableQueryCallback
 import elezov.com.justrentit.model.Advert
 import elezov.com.justrentit.model.User
@@ -40,8 +42,20 @@ class DetailAdvertActivity : AppCompatActivity() {
 
     lateinit var fab: FloatingActionButton
 
+    var delete: MenuItem?=null
+
+    //private lateinit var callBackAfterDeleteAdvert:BackAfterDeleteAdvertListener
+
+    /*interface BackAfterDeleteAdvertListener{
+        fun onBackAfterDeleteAdvert()
+    }*/
+
+
+
     private var mobileServiceClient: MobileServiceClient? = null
     private var utils: Utils? = null
+    private var advert:Advert?=null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,8 +68,10 @@ class DetailAdvertActivity : AppCompatActivity() {
         progressDialog = ProgressDialog(this)
         progressDialog!!.setTitle("Loading...")
         progressDialog!!.setMessage("Please wait...")
+       // progressDialog!!.setCancelable(false)
         progressDialog!!.show()
 
+        //callBackAfterDeleteAdvert=this as BackAfterDeleteAdvertListener
 
         imgInfo=findViewById(R.id.image_backdrap_info) as ImageView
         nameText=findViewById(R.id.advert_info_name_text) as TextView
@@ -65,6 +81,7 @@ class DetailAdvertActivity : AppCompatActivity() {
         pricePerMonthText = findViewById(R.id.advert_info_price_per_month) as TextView
         phoneText = findViewById(R.id.phone_number) as TextView
         ownerText=findViewById(R.id.name_owner) as TextView
+
 
         val collapsingToolbar = findViewById(R.id.collapsing_toolbar) as CollapsingToolbarLayout
         collapsingToolbar.title = "  "
@@ -83,6 +100,7 @@ class DetailAdvertActivity : AppCompatActivity() {
         mobileServiceClient!!.getTable(Advert::class.java).where().field("id").eq(Utils.getInstance().currentAdvert)
                 .execute { result, count, exception, response ->
                     if (exception == null) {
+                        advert=result[0]
                         Log.v("GetAdvertById", result[0].name)
                         //collapsingToolbar.title=result[0].name
                         if (result[0].stringPhoto !== "") {
@@ -102,6 +120,10 @@ class DetailAdvertActivity : AppCompatActivity() {
                                     if (exception == null) {
                                         Log.v("GetUserByMail", users[0].name)
                                         ownerText!!.text=users[0].name
+                                       if (result[0].id_user==utils!!.getUser_Mail()){
+                                           delete!!.setVisible(true)
+                                       }
+
                                         progressDialog!!.hide()
                                         fab.setOnClickListener(View.OnClickListener {
                                             val callIntent = Intent(Intent.ACTION_CALL)
@@ -116,6 +138,7 @@ class DetailAdvertActivity : AppCompatActivity() {
                                 }
 
                     } else {
+                        progressDialog!!.hide()
                         Log.v("GetAdvertById", exception.message)
                     }
                 }
@@ -125,9 +148,42 @@ class DetailAdvertActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        //Toast.makeText(applicationContext,"sdgsdgs",Toast.LENGTH_LONG).show()
-        onBackPressed()
+        when (item!!.itemId)
+        {
+            R.id.action_delete->
+                mobileServiceClient!!.getTable(Advert::class.java)
+                        .delete(advert, TableDeleteCallback {
+                            exception, serviceFilterResponse ->
+                            if (exception==null){
+                                Toast.makeText(applicationContext,"Ваше объявление удалено",Toast.LENGTH_LONG).show()
+                                var intent=Intent(this,MainActivity::class.java)
+                                intent.putExtra("DeleteFlag",true)
+                                startActivity(intent)
+                                //callBackAfterDeleteAdvert.onBackAfterDeleteAdvert()
+                            }
+                            else
+                            {
+                                Toast.makeText(applicationContext,"Произошла ошибка, повторите попытку позднее",
+                                        Toast.LENGTH_LONG).show()
+                            }
+                        })
+            else -> onBackPressed()
+        }
+
         return super.onOptionsItemSelected(item)
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        var inflater = menuInflater
+                inflater.inflate(R.menu.activity_detail_menu, menu)
+
+        delete= menu!!.findItem(R.id.action_delete)
+
+
+
+        return true
     }
 
 

@@ -39,6 +39,7 @@ class AdvertListFragment : Fragment() {
         progressDialog = ProgressDialog(context)
         progressDialog!!.setTitle("Loading...")
         progressDialog!!.setMessage("Please wait...")
+        progressDialog!!.setCancelable(false)
         progressDialog!!.show()
         val utils = Utils.getInstance()
         rv = rootView.findViewById(R.id.advert_recycler) as RecyclerView

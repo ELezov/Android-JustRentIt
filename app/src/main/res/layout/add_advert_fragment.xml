@@ -27,23 +27,38 @@
                 android:textSize="20sp" />
         </LinearLayout>
 
-
-        <EditText
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/name_advert_edit"
-            android:hint="Наименование"
-            android:inputType="text"/>
+            android:layout_margin="5dp">
 
-        <EditText
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/name_advert_edit"
+                android:hint="Наименование"
+                android:inputType="text"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Описание"
-            android:id="@+id/description_advert_edit"
-            android:imeOptions="actionDone"
-            android:scrollHorizontally="false"
-            android:lines="5"
-            android:inputType="text"/>
+            android:layout_margin="5dp">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Описание"
+                android:id="@+id/description_advert_edit"
+                android:imeOptions="actionDone"
+                android:scrollHorizontally="false"
+                android:lines="5"
+                android:inputType="text"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+
         <TextView
             android:layout_marginTop="5dp"
             android:layout_marginLeft="5dp"
@@ -51,15 +66,19 @@
             android:layout_height="wrap_content"
             android:text="Выберите категорию"
             android:textSize="10dp"/>
-
-        <android.support.v7.widget.AppCompatSpinner
-            android:id="@+id/category_add_spiner"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:spinnerMode="dropdown"
-            android:background="@color/colorPrimary">
+            android:orientation="horizontal"
+            android:background="@color/colorPrimary"
+            android:layout_gravity="center">
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/category_add_spiner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
 
-        </android.support.v7.widget.AppCompatSpinner>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -78,11 +97,13 @@
                 android:src="@drawable/logo"
                 android:layout_marginLeft="10dp" />
 
-            <Button
+            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/load_photo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Load photo"
+                android:background="@color/colorAccent"
+                android:textColor="#FFFFFF"
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp"/>
 
@@ -104,8 +125,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
             </LinearLayout>
 
@@ -201,19 +221,20 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Залог"
                 android:textSize="20sp"
+                android:layout_weight="2"
                 android:layout_marginLeft="10dp"/>
 
             <EditText
                 android:id="@+id/pledge_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="1000"
-                android:layout_marginLeft="30dp"
                 android:textSize="20sp"
+                android:layout_weight="1"
                 android:inputType="numberDecimal"/>
 
         </LinearLayout>
@@ -224,10 +245,12 @@
             android:orientation="horizontal">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Телефон"
+                android:text="Телeфон"
                 android:textSize="20sp"
+                android:gravity="center_vertical"
+                android:layout_weight="2"
                 android:layout_marginLeft="10dp"/>
 
             <br.com.sapereaude.maskedEditText.MaskedEditText
@@ -235,11 +258,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
-                android:layout_marginLeft="30dp"
                 android:inputType="phone"
                 android:typeface="monospace"
+                android:gravity="center_vertical"
+                android:layout_weight="1"
                 mask:allowed_chars="1234567890"
-                android:hint="9001234567"
+                android:hint="0000000000"
                 mask:mask="+7(###)###-##-##"
                 app:keep_hint="true" />
 
@@ -272,7 +296,8 @@
             android:background="@color/colorAccent"
             android:textColor="#FFFFFF"
             android:text="Дать объявление"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:layout_marginBottom="10dp"/>
     </LinearLayout>
 
 </ScrollView>

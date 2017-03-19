@@ -49,7 +49,9 @@ class CatalogFragment : Fragment() {
 
         rv.layoutManager = LinearLayoutManager(rv.context)
         adapter = CatalogAdapter()
+
         clickCallback = activity as OpenAdvertListClickListener
+
         adapter.onButtonClickListener = {position->
             clickCallback.onOpenAdvertList(position)
         }

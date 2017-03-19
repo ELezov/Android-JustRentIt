@@ -1,7 +1,9 @@
 
 package elezov.com.justrentit
 
+import android.app.AlertDialog
 import android.app.ProgressDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -13,6 +15,7 @@ import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.SearchView
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
@@ -29,15 +32,22 @@ import java.net.MalformedURLException
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener,
         CatalogFragment.OpenAdvertListClickListener, AddAdvertFragment.nextAfterAddAdvertClickListener,
-        AdvertListFragment.OpenAdvertInfoClickListener{
+        AdvertListFragment.OpenAdvertInfoClickListener,  SearchView.OnQueryTextListener{
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
+    override fun onQueryTextChange(newText: String?): Boolean {
+        throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
 
     lateinit var currFrgmClass: Class<*>
     private var mGoogleApiClient: GoogleApiClient? = null
     private var mClient: MobileServiceClient? = null
-    lateinit public var fab: FloatingActionButton
+    lateinit var fab: FloatingActionButton
     lateinit var progressDialog: ProgressDialog
+    lateinit var alertDialog: AlertDialog.Builder
     var utils=Utils.getInstance()
 
 
@@ -46,6 +56,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         utils.current_id=position
         FragmentManager(AdvertListFragment::class.java,true)
     }
+
+
 
     override fun nextAfterAddAdvert(){
         if (currFrgmClass==AddAdvertFragment::class.java)
@@ -80,9 +92,24 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             Log.e("DB", "PERMISSION GRANTED")
         }
 
+        alertDialog=AlertDialog.Builder(this)
+        alertDialog.setCancelable(false)
+        alertDialog.setMessage("Вы уверены, что хотите выйте из приложения")
+
+        alertDialog.setNegativeButton("Отменить",DialogInterface.OnClickListener {
+            dialogInterface, i ->
+
+        })
+        alertDialog.setPositiveButton("Выйти", DialogInterface.OnClickListener {
+            dialogInterface, i ->
+            finishAffinity()
+        })
+
+
         progressDialog= ProgressDialog(this)
         progressDialog.setTitle("Loading...")
         progressDialog.setMessage("Please wait...")
+        progressDialog.setCancelable(false)
         progressDialog.show()
 
         utils.setUser_Mail(utils.getUserMail(this))
@@ -126,16 +153,23 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
 
         mClient!!.getTable(Category::class.java).execute { result, count, exception, response ->
-            if (result != null) {
+            if (exception==null) {
                 Log.v("URA", "" + result!!.size)
                 utils.setListCategory(result)
-                //for (i in result!!.indices)
-                   // Log.v(result!![i].name, "" + result!![i].id)
             }
-            else { }
-            progressDialog.hide()
-            FragmentManager(CatalogFragment::class.java,false)
+            else {
 
+            }
+            progressDialog.hide()
+
+            var flag=intent!!.getBooleanExtra("DeleteFlag",false)
+            if (flag)
+                {
+                    FragmentManager(MyAdvertsFragment::class.java,false)
+                }
+            else{
+                    FragmentManager(CatalogFragment::class.java,false)
+                }
 
         }
 
@@ -153,6 +187,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 super.onBackPressed()
             }
             else {
+
+                alertDialog.show()
 
             }
         }
@@ -189,18 +225,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
             // Handle the camera action
         } else if (id == R.id.nav_my_advert) {
-            if (currFrgmClass==AddAdvertFragment::class.java)
-                fab.visibility=View.VISIBLE
-            FragmentManager(MyAdvertsFragment::class.java,false)
+            if (currFrgmClass == AddAdvertFragment::class.java)
+                fab.visibility = View.VISIBLE
+            FragmentManager(MyAdvertsFragment::class.java, false)
 
-        } else if (id == R.id.nav_favorites) {
-            if (currFrgmClass==AddAdvertFragment::class.java)
-                fab.visibility=View.VISIBLE
-            FragmentManager(FavoriteAdvertsFragment::class.java,false)
-        } else if (id == R.id.nav_manage) {
-
-
-        } else if (id == R.id.nav_share) {
+//        } else if (id == R.id.nav_favorites) {
+//            if (currFrgmClass==AddAdvertFragment::class.java)
+//                fab.visibility=View.VISIBLE
+//            FragmentManager(FavoriteAdvertsFragment::class.java,false)
+//        } else if (id == R.id.nav_manage) {
+//
+//
+//        } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.exit) {
             Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback { }
@@ -219,6 +255,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     fun FragmentManager(fragmClass: Class<*>,flag:Boolean) {
         currFrgmClass=fragmClass
         utils.setCurrFrgmClass(currFrgmClass)
+        /*if (currFrgmClass==MyAdvertsFragment::class.java)
+        {
+            supportActionBar!!.title="Ваши объявления"
+        }
+        else{
+            supportActionBar!!.title="JustRentIt"
+        }*/
         var fragment: Fragment? = null
         val fragmentClass = fragmClass
         try {

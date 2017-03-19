@@ -40,6 +40,7 @@ class MyAdvertsFragment : Fragment() {
         progressDialog = ProgressDialog(context)
         progressDialog!!.setTitle("Loading...")
         progressDialog!!.setMessage("Please wait...")
+        progressDialog!!.setCancelable(false)
         progressDialog!!.show()
 
         rv=rootView.findViewById(R.id.my_adverts_list) as RecyclerView

@@ -10,27 +10,26 @@
             android:id="@+id/nav_my_advert"
             android:icon="@drawable/ad_icon_mono"
             android:title="Мои объявления" />
-        <item
-            android:id="@+id/nav_favorites"
-            android:icon="@drawable/favorites_icon_mono"
-            android:title="Избранное" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/settings_icon_64"
-            android:title="Настройки" />
+        <!--<item-->
+            <!--android:id="@+id/nav_favorites"-->
+            <!--android:icon="@drawable/favorites_icon_mono"-->
+            <!--android:title="Избранное" />-->
+        <!--<item-->
+            <!--android:id="@+id/nav_manage"-->
+            <!--android:icon="@drawable/settings_icon_64"-->
+            <!--android:title="Настройки" />-->
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/share_icon_mono"
-                android:title="Share" />
-            <item
-                android:id="@+id/exit"
-                android:icon="@drawable/exit_icon_mono"
-                android:title="Выйти" />
-        </menu>
-    </item>
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/exit"
+            android:icon="@drawable/exit_icon_mono"
+            android:title="Выйти" />
+    </group>
+
+
 
 </menu>

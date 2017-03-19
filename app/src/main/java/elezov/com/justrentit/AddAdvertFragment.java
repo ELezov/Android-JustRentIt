@@ -10,6 +10,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.telephony.PhoneNumberFormattingTextWatcher;
@@ -29,6 +31,8 @@ import android.widget.Toast;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
 import com.microsoft.windowsazure.mobileservices.table.TableOperationCallback;
+
+import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
 import java.net.MalformedURLException;
@@ -87,7 +91,7 @@ public class AddAdvertFragment extends Fragment {
         View rootView=inflater.inflate(R.layout.add_advert_fragment,container,false);
         image = (ImageView) rootView.findViewById(R.id.advert_imageview);
         loadButton = (Button) rootView.findViewById(R.id.load_photo);
-        nameAdvert=(EditText)rootView.findViewById(R.id.name_advert_edit);
+        nameAdvert=(EditText) rootView.findViewById(R.id.name_advert_edit);
         descriptionAdvert=(EditText)rootView.findViewById(R.id.description_advert_edit);
         makeAdvertBtn=(Button)rootView.findViewById(R.id.make_advert);
         pricePerDay=(EditText)rootView.findViewById(R.id.price_edit_per_day);
@@ -150,7 +154,7 @@ public class AddAdvertFragment extends Fragment {
                         ||pricePerWeek.getText().toString().equals("")
                         ||pricePerMonth.getText().toString().equals("")
                         ||depositEdit.getText().toString().equals("")
-                        ||phoneNumberEdit.getText().toString().equals(""))
+                        ||phoneNumberEdit.getText().toString().equals("+7(000)000-00-00"))
                 {
                     Toast.makeText(getContext(), "Заполните все поля", Toast.LENGTH_SHORT).show();
                 }
