@@ -37,6 +37,8 @@ class DetailAdvertActivity : AppCompatActivity() {
     var descriptionText: TextView?=null
     var phoneText: TextView?=null
     var ownerText: TextView?=null
+    var depositText:TextView?=null
+    var checkPassport:TextView?=null
 
     private var progressDialog: ProgressDialog?=null
 
@@ -68,7 +70,7 @@ class DetailAdvertActivity : AppCompatActivity() {
         progressDialog = ProgressDialog(this)
         progressDialog!!.setTitle("Loading...")
         progressDialog!!.setMessage("Please wait...")
-       // progressDialog!!.setCancelable(false)
+        progressDialog!!.setCancelable(false)
         progressDialog!!.show()
 
         //callBackAfterDeleteAdvert=this as BackAfterDeleteAdvertListener
@@ -81,6 +83,8 @@ class DetailAdvertActivity : AppCompatActivity() {
         pricePerMonthText = findViewById(R.id.advert_info_price_per_month) as TextView
         phoneText = findViewById(R.id.phone_number) as TextView
         ownerText=findViewById(R.id.name_owner) as TextView
+        depositText=findViewById(R.id.deposit) as TextView
+        checkPassport=findViewById(R.id.passport_check) as TextView
 
 
         val collapsingToolbar = findViewById(R.id.collapsing_toolbar) as CollapsingToolbarLayout
@@ -114,6 +118,23 @@ class DetailAdvertActivity : AppCompatActivity() {
                         pricePerMonthText!!.text=result[0].pricePerMonth.toString()
                         descriptionText!!.text=result[0].description
                         phoneText!!.text=result[0].phoneNumber
+
+                        if (result[0].deposit.equals(0.0))
+                        {
+                            depositText!!.text="Залог не требуется"
+                        }
+                        else {
+                            depositText!!.text = "Залог: " + result[0].deposit.toString() + " руб."
+                        }
+
+                        if (result[0].document)
+                        {
+                            checkPassport!!.text="Залог документами возможен"
+                        }
+                        else
+                        {
+                            checkPassport!!.text="Залог документами отсутствует"
+                        }
 
                         mobileServiceClient!!.getTable(User::class.java).where().field("mail").eq(result[0].id_user)
                                 .execute { users, count, exception, response ->

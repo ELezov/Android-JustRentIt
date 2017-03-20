@@ -155,6 +155,8 @@ class LoginActivity : AppCompatActivity(), GoogleApiClient.OnConnectionFailedLis
     private fun showProgressDialog() {
         if (mProgressDialog == null) {
             mProgressDialog = ProgressDialog(this)
+            mProgressDialog!!.setTitle("Loading...")
+            mProgressDialog!!.setMessage("Please wait...")
             mProgressDialog!!.setCancelable(false)
 
             mProgressDialog!!.setIndeterminate(true)
